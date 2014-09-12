@@ -1,0 +1,1295 @@
+{
+    "runtimeVersion": "0.4.0",
+    "hash": "a81c1ff1d5a4b6f341aaf5c5823674d2fd3642b7",
+    "erd": [
+        {
+            "name": "InsuredObject",
+            "attributes": {
+                "_id": "String",
+                "type": "String"
+            },
+            "references": {
+                "vehicle": "Vehicle",
+                "building": "Building"
+            }
+        },
+        {
+            "name": "Coverage",
+            "attributes": {
+                "_id": "String",
+                "name": "String",
+                "startDate": "String",
+                "insuredSum": "String",
+                "premium": "String",
+                "paymentFrequency": "String"
+            },
+            "references": {}
+        },
+        {
+            "name": "Address",
+            "attributes": {
+                "_id": "String",
+                "street": "String",
+                "houseNumber": "String",
+                "zipCode": "String",
+                "city": "String",
+                "country": "String",
+                "region": "String",
+                "poBox": "String"
+            },
+            "references": {}
+        },
+        {
+            "name": "Vehicle",
+            "attributes": {
+                "make": "String",
+                "model": "String",
+                "type": "String",
+                "licensePlate": "String",
+                "_id": "String"
+            },
+            "references": {}
+        },
+        {
+            "name": "DamagedObject",
+            "attributes": {
+                "_id": "String"
+            },
+            "references": {
+                "insuredObject": "InsuredObject"
+            }
+        },
+        {
+            "name": "Location",
+            "attributes": {
+                "_id": "String"
+            },
+            "references": {
+                "address": "Address",
+                "structuredFacts": [
+                    "FactQuestion"
+                ]
+            }
+        },
+        {
+            "name": "FactAnswer",
+            "attributes": {
+                "_id": "String",
+                "title": "String",
+                "value": "String",
+                "selected": "Boolean",
+                "nextQuestionId": "String",
+                "freeform": "Boolean"
+            },
+            "references": {}
+        },
+        {
+            "name": "Liability",
+            "attributes": {
+                "_id": "String",
+                "opinion": "String"
+            },
+            "references": {
+                "structuredFacts": [
+                    "FactQuestion"
+                ],
+                "liable": "Person"
+            }
+        },
+        {
+            "name": "FactQuestion",
+            "attributes": {
+                "_id": "String",
+                "title": "String",
+                "type": "String"
+            },
+            "references": {
+                "answers": [
+                    "FactAnswer"
+                ]
+            }
+        },
+        {
+            "name": "SurchargeDiscount",
+            "attributes": {
+                "_id": "String",
+                "calculatedAmount": "Number",
+                "unit": "String"
+            },
+            "references": {}
+        },
+        {
+            "name": "PaymentMethod",
+            "attributes": {},
+            "references": {
+                "directDebit": "DebitCard",
+                "creditCard": "CreditCard"
+            }
+        },
+        {
+            "name": "CreditCard",
+            "attributes": {
+                "_id": "String",
+                "type": "String",
+                "cardHolderName": "String",
+                "cardNumber": "String",
+                "validTill": "String",
+                "description": "String"
+            },
+            "references": {}
+        },
+        {
+            "name": "DebitCard",
+            "attributes": {
+                "_id": "String",
+                "bankIdent": "String",
+                "bankCountry": "String",
+                "accountNumber": "String",
+                "accountHolderName": "String",
+                "cardNumber": "String",
+                "validTill": "String"
+            },
+            "references": {}
+        },
+        {
+            "name": "PolicyHolder",
+            "attributes": {
+                "_id": "String"
+            },
+            "references": {
+                "person": "Person",
+                "policy": "Policy"
+            }
+        },
+        {
+            "name": "SalesProduct",
+            "attributes": {
+                "_id": "String",
+                "name": "String"
+            },
+            "references": {
+                "product": "Product"
+            }
+        },
+        {
+            "name": "Policy",
+            "attributes": {
+                "_id": "String",
+                "name": "String",
+                "startDate": "String",
+                "premium": "String",
+                "paymentFrequency": "String"
+            },
+            "references": {
+                "contracts": [
+                    "Contract"
+                ]
+            }
+        },
+        {
+            "name": "Contract",
+            "attributes": {
+                "_id": "String",
+                "name": "String",
+                "startDate": "String",
+                "premium": "String",
+                "paymentFrequency": "String",
+                "endDate": "String",
+                "duration": "Number"
+            },
+            "references": {
+                "insuredObject": "InsuredObject",
+                "coverages": [
+                    "Coverage"
+                ],
+                "claims": [
+                    "Claim"
+                ]
+            }
+        },
+        {
+            "name": "CoverageDefinition",
+            "attributes": {
+                "_id": "String",
+                "name": "String",
+                "premium": "Number",
+                "paymentFrequency": "String",
+                "insuredSum": "Number",
+                "mandatory": "Boolean",
+                "selected": "Boolean",
+                "disabled": "Boolean",
+                "insuredPercentage": "Number"
+            },
+            "references": {}
+        },
+        {
+            "name": "Incident",
+            "attributes": {
+                "date": "String",
+                "time": "String",
+                "type": "String",
+                "_id": "String"
+            },
+            "references": {}
+        },
+        {
+            "name": "Product",
+            "attributes": {
+                "_id": "String",
+                "name": "String",
+                "premium": "String",
+                "paymentFrequency": "String",
+                "deductible": "Number",
+                "mandatory": "Boolean",
+                "selected": "Boolean",
+                "duration": "String",
+                "startDate": "String",
+                "endDate": "String"
+            },
+            "references": {
+                "coverages": [
+                    "CoverageDefinition"
+                ]
+            }
+        },
+        {
+            "name": "Person",
+            "attributes": {
+                "_id": "String",
+                "firstName": "String",
+                "lastName": "String",
+                "gender": "String",
+                "salutation": "String",
+                "birthDate": "String",
+                "email": "String",
+                "phoneNumber": "String",
+                "__token": "String"
+            },
+            "references": {
+                "policies": [
+                    "Policy"
+                ],
+                "address": "Address"
+            }
+        },
+        {
+            "name": "Claim",
+            "attributes": {
+                "_id": "String"
+            },
+            "references": {
+                "incident": "Incident",
+                "location": "Location",
+                "liability": "Liability",
+                "damagedObject": "DamagedObject",
+                "responsible": "Person"
+            }
+        },
+        {
+            "name": "GenericError",
+            "attributes": {
+                "message": "String",
+                "_id": "String"
+            },
+            "references": {}
+        },
+        {
+            "name": "Building",
+            "attributes": {
+                "_id": "String",
+                "prefabricated": "Boolean",
+                "mostUsedMaterial": "String",
+                "exteriorWalls": "String",
+                "roofType": "String",
+                "buildingType": "String",
+                "urbanArea": "String",
+                "interiorGlazing": "Number",
+                "exteriorGlazing": "Number",
+                "alarmSystem": "String",
+                "livingSpace": "String",
+                "ownership": "String",
+                "permanentlyInhabited": "Boolean",
+                "usage": "String"
+            },
+            "references": {
+                "address": "Address"
+            }
+        }
+    ],
+    "services": [
+        {
+            "id": "523c2ffd73cfc3244e000012",
+            "title": "Collective Discount",
+            "packageName": null,
+            "version": null
+        },
+        {
+            "id": "525d594974180b4a2c000004",
+            "title": "Calculate Quote Family Insurance v2",
+            "packageName": null,
+            "version": null
+        },
+        {
+            "id": "52cd5c0f27705e8712000001",
+            "title": "Get coverages for MedGulf",
+            "packageName": null,
+            "version": null
+        },
+        {
+            "id": "52cd5c0f27705e8712000005",
+            "title": "Calculate quote for MedGulf",
+            "packageName": null,
+            "version": null
+        },
+        {
+            "id": "52cd5c0f27705e871200000a",
+            "title": "Apply quote for MedGulf",
+            "packageName": null,
+            "version": null
+        },
+        {
+            "id": "52779209128060954f000008",
+            "title": "Get contract and coverage details",
+            "packageName": "bs-get-contract-and-coverage-details",
+            "version": "master"
+        },
+        {
+            "id": "52779209128060954f00000f",
+            "title": "Get Business partners for agent",
+            "packageName": null,
+            "version": null
+        },
+        {
+            "id": "525d594a74180b4a2c00000e",
+            "title": "Re-calculate Quote Family Insurance",
+            "packageName": null,
+            "version": null
+        },
+        {
+            "id": "523c2ffd73cfc3244e00001a",
+            "title": "Calculate Quote Family Insurance",
+            "packageName": "bs-calculate-quote-family-insurance",
+            "version": "master"
+        },
+        {
+            "id": "52fa0221aece17e2737fcda4",
+            "title": "Get incident types",
+            "packageName": "bs-get-incident-types",
+            "version": "master"
+        },
+        {
+            "id": "52f9fadaaece17e2737fcd99",
+            "title": "Apply claim for vehicle",
+            "packageName": "bs-apply-claim-for-vehicle",
+            "version": "master"
+        },
+        {
+            "id": "52779209128060954f000014",
+            "title": "Customer login",
+            "packageName": "bs-newfuture-login",
+            "version": "master"
+        },
+        {
+            "id": "535fc2b84956bd4c893dec5a",
+            "title": "Apply for household insurance",
+            "packageName": "bs-apply-for-household-insurance",
+            "version": "master"
+        },
+        {
+            "id": "52779209128060954f000003",
+            "title": "Get policies for business partner",
+            "packageName": "bs-get-policies-for-business-partner",
+            "version": "master"
+        },
+        {
+            "id": "52f8d982aece17e2737fcd95",
+            "title": "Get questionnaires",
+            "packageName": "bs-car-incident-quests",
+            "version": "master"
+        },
+        {
+            "id": "538f1ba84240bdd696000002",
+            "title": "Login",
+            "packageName": "bs-newfuture-login",
+            "version": "master"
+        }
+    ],
+    "diagrams": {
+        "53303bb360f2c3ce310002ea": {
+            "id": "53303bb360f2c3ce310002ea",
+            "name": "Quote for household insurance",
+            "start-element": "5330426560f2c3ce310004e3",
+            "data": [
+                {
+                    "ident": "insuredBuilding",
+                    "type": "Building",
+                    "isArray": false
+                },
+                {
+                    "ident": "product",
+                    "type": "Product",
+                    "isArray": false
+                },
+                {
+                    "ident": "error",
+                    "type": "GenericError",
+                    "isArray": false
+                }
+            ],
+            "exits": {
+                "538c3e87d0f8f2f30b0003a7": {
+                    "id": "538c3e87d0f8f2f30b0003a7",
+                    "name": null
+                },
+                "53983373b8154ddf0b00002e": {
+                    "id": "53983373b8154ddf0b00002e",
+                    "name": "error"
+                },
+                "5399735ab8154ddf0b000112": {
+                    "id": "5399735ab8154ddf0b000112",
+                    "name": "end"
+                },
+                "53997382b8154ddf0b000125": {
+                    "id": "53997382b8154ddf0b000125",
+                    "name": "to-save-quote"
+                }
+            },
+            "elements": {
+                "5330426560f2c3ce310004e3": {
+                    "id": "5330426560f2c3ce310004e3",
+                    "title": "Premium determinants",
+                    "file-name": "step-1-quote-preparation",
+                    "type": "viewlet",
+                    "data": [
+                        {
+                            "ident": "building",
+                            "type": "Building",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {
+                        "building": "insuredBuilding"
+                    },
+                    "exits": {
+                        "calculate-quote": {
+                            "outputs": {
+                                "insuredBuilding": "building"
+                            },
+                            "connectedTo": "53983335b8154ddf0b00001c"
+                        }
+                    }
+                },
+                "5330427c60f2c3ce31000503": {
+                    "id": "5330427c60f2c3ce31000503",
+                    "title": "Select contract and coverages",
+                    "file-name": "step-2-select-contracts-and-coverages",
+                    "type": "viewlet",
+                    "data": [
+                        {
+                            "ident": "product",
+                            "type": "Product",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "building",
+                            "type": "Building",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {
+                        "product": "product",
+                        "building": "insuredBuilding"
+                    },
+                    "exits": {
+                        "to-quote-summary": {
+                            "outputs": {
+                                "product": "product",
+                                "insuredBuilding": "building"
+                            },
+                            "connectedTo": "533042a760f2c3ce3100051b"
+                        },
+                        "recalculate": {
+                            "outputs": {
+                                "product": "product",
+                                "insuredBuilding": "building"
+                            },
+                            "connectedTo": "53983335b8154ddf0b00001c"
+                        },
+                        "edit-step-1-quote-preparation": {
+                            "outputs": {
+                                "product": "product",
+                                "insuredBuilding": "building"
+                            },
+                            "connectedTo": "5330426560f2c3ce310004e3"
+                        }
+                    }
+                },
+                "533042a760f2c3ce3100051b": {
+                    "id": "533042a760f2c3ce3100051b",
+                    "title": "Quote summary",
+                    "file-name": "step-3-quote-summary",
+                    "type": "viewlet",
+                    "data": [
+                        {
+                            "ident": "building",
+                            "type": "Building",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "product",
+                            "type": "Product",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {
+                        "building": "insuredBuilding",
+                        "product": "product"
+                    },
+                    "exits": {
+                        "edit-contracts-and-coverages": {
+                            "outputs": {},
+                            "connectedTo": "5330427c60f2c3ce31000503"
+                        },
+                        "to-quote-preparation": {
+                            "outputs": {},
+                            "connectedTo": "5330426560f2c3ce310004e3"
+                        },
+                        "to-apply": {
+                            "outputs": {},
+                            "connectedTo": "538c3e87d0f8f2f30b0003a7"
+                        },
+                        "to-end": {
+                            "outputs": {},
+                            "connectedTo": "5399735ab8154ddf0b000112"
+                        },
+                        "to-save-quote": {
+                            "outputs": {},
+                            "connectedTo": "53997382b8154ddf0b000125"
+                        }
+                    }
+                },
+                "53983335b8154ddf0b00001c": {
+                    "id": "53983335b8154ddf0b00001c",
+                    "title": "",
+                    "type": "service",
+                    "service-name": "calculate-quote-family-insurance",
+                    "service-guid": "523c2ffd73cfc3244e00001a",
+                    "data": [
+                        {
+                            "ident": "changedProduct",
+                            "type": "Product",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "building",
+                            "type": "Building",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "product",
+                            "type": "Product",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "error",
+                            "type": "GenericError",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {
+                        "changedProduct": "product",
+                        "building": "insuredBuilding"
+                    },
+                    "exits": {
+                        "error": {
+                            "outputs": {
+                                "product": "product",
+                                "error": "error"
+                            },
+                            "connectedTo": "53983373b8154ddf0b00002e"
+                        },
+                        "success": {
+                            "outputs": {
+                                "product": "product",
+                                "error": "error"
+                            },
+                            "connectedTo": "5330427c60f2c3ce31000503"
+                        }
+                    }
+                }
+            }
+        },
+        "5357ac33b8b484a570000001": {
+            "id": "5357ac33b8b484a570000001",
+            "name": "Apply for household insurance",
+            "start-element": "5357b191b8b484a570000051",
+            "data": [
+                {
+                    "ident": "selectedPaymentMethod",
+                    "type": "String",
+                    "isArray": false
+                },
+                {
+                    "ident": "insuredBuilding",
+                    "type": "Building",
+                    "isArray": false
+                },
+                {
+                    "ident": "product",
+                    "type": "Product",
+                    "isArray": false
+                },
+                {
+                    "ident": "person",
+                    "type": "Person",
+                    "isArray": false
+                },
+                {
+                    "ident": "paymentMethod",
+                    "type": "PaymentMethod",
+                    "isArray": false
+                },
+                {
+                    "ident": "error",
+                    "type": "GenericError",
+                    "isArray": false
+                },
+                {
+                    "ident": "policy",
+                    "type": "Policy",
+                    "isArray": false
+                }
+            ],
+            "exits": {
+                "538ee669a154d0ba61000201": {
+                    "id": "538ee669a154d0ba61000201",
+                    "name": "to-product-information"
+                },
+                "53985db5b8154ddf0b00008a": {
+                    "id": "53985db5b8154ddf0b00008a",
+                    "name": "error"
+                },
+                "53a9f97667349dc5330000ae": {
+                    "id": "53a9f97667349dc5330000ae",
+                    "name": "end"
+                }
+            },
+            "elements": {
+                "5357b191b8b484a570000051": {
+                    "id": "5357b191b8b484a570000051",
+                    "title": "Step 1 - Insurance details",
+                    "file-name": "step-1-insurance-details",
+                    "type": "viewlet",
+                    "data": [
+                        {
+                            "ident": "building",
+                            "type": "Building",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "product",
+                            "type": "Product",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {
+                        "building": "insuredBuilding",
+                        "product": "product"
+                    },
+                    "exits": {
+                        "to-personal-details": {
+                            "outputs": {
+                                "insuredBuilding": "building",
+                                "product": "product"
+                            },
+                            "connectedTo": "5357b1d1b8b484a57000005e"
+                        }
+                    }
+                },
+                "5357b1d1b8b484a57000005e": {
+                    "id": "5357b1d1b8b484a57000005e",
+                    "title": "Step 2 - Personal details",
+                    "file-name": "step-2-personal-details",
+                    "type": "viewlet",
+                    "data": [
+                        {
+                            "ident": "person",
+                            "type": "Person",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "building",
+                            "type": "Building",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "product",
+                            "type": "Product",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {
+                        "person": "person",
+                        "building": "insuredBuilding",
+                        "product": "product"
+                    },
+                    "exits": {
+                        "to-payment-details": {
+                            "outputs": {
+                                "person": "person"
+                            },
+                            "connectedTo": "5357b1deb8b484a570000069"
+                        },
+                        "to-insurance-details": {
+                            "outputs": {
+                                "person": "person"
+                            },
+                            "connectedTo": "5357b191b8b484a570000051"
+                        }
+                    }
+                },
+                "5357b1deb8b484a570000069": {
+                    "id": "5357b1deb8b484a570000069",
+                    "title": "Step 3 - Payment details",
+                    "file-name": "step-3-payment-details",
+                    "type": "viewlet",
+                    "data": [
+                        {
+                            "ident": "product",
+                            "type": "Product",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "paymentMethod",
+                            "type": "PaymentMethod",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "building",
+                            "type": "Building",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "selectedPaymentMethod",
+                            "type": "String",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {
+                        "product": "product",
+                        "paymentMethod": "paymentMethod",
+                        "building": "insuredBuilding",
+                        "selectedPaymentMethod": "selectedPaymentMethod"
+                    },
+                    "exits": {
+                        "to-recalculate-premium": {
+                            "outputs": {
+                                "paymentMethod": "paymentMethod",
+                                "product": "product",
+                                "selectedPaymentMethod": "selectedPaymentMethod"
+                            },
+                            "connectedTo": "53985d3eb8154ddf0b000062"
+                        },
+                        "to-personal-details": {
+                            "outputs": {
+                                "paymentMethod": "paymentMethod",
+                                "product": "product",
+                                "selectedPaymentMethod": "selectedPaymentMethod"
+                            },
+                            "connectedTo": "5357b1d1b8b484a57000005e"
+                        },
+                        "to-insurance-details": {
+                            "outputs": {
+                                "paymentMethod": "paymentMethod",
+                                "product": "product",
+                                "selectedPaymentMethod": "selectedPaymentMethod"
+                            },
+                            "connectedTo": "5357b191b8b484a570000051"
+                        }
+                    }
+                },
+                "5357b1f0b8b484a570000077": {
+                    "id": "5357b1f0b8b484a570000077",
+                    "title": "Step 4 - Summary",
+                    "file-name": "step-4-summary",
+                    "type": "viewlet",
+                    "data": [
+                        {
+                            "ident": "person",
+                            "type": "Person",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "product",
+                            "type": "Product",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "paymentMethod",
+                            "type": "PaymentMethod",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "building",
+                            "type": "Building",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "selectedPaymentMethod",
+                            "type": "String",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {
+                        "person": "person",
+                        "product": "product",
+                        "paymentMethod": "paymentMethod",
+                        "building": "insuredBuilding",
+                        "selectedPaymentMethod": "selectedPaymentMethod"
+                    },
+                    "exits": {
+                        "to-apply": {
+                            "outputs": {},
+                            "connectedTo": "53985d49b8154ddf0b000069"
+                        },
+                        "to-payment-details": {
+                            "outputs": {},
+                            "connectedTo": "5357b1deb8b484a570000069"
+                        },
+                        "to-personal-details": {
+                            "outputs": {},
+                            "connectedTo": "5357b1d1b8b484a57000005e"
+                        },
+                        "to-insurance-details": {
+                            "outputs": {},
+                            "connectedTo": "5357b191b8b484a570000051"
+                        }
+                    }
+                },
+                "5357b21ab8b484a570000090": {
+                    "id": "5357b21ab8b484a570000090",
+                    "title": "Confirmation",
+                    "file-name": "confirmation",
+                    "type": "viewlet",
+                    "data": [
+                        {
+                            "ident": "policy",
+                            "type": "Policy",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "person",
+                            "type": "Person",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "product",
+                            "type": "Product",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {
+                        "policy": "policy",
+                        "person": "person",
+                        "product": "product"
+                    },
+                    "exits": {
+                        "to-product-information": {
+                            "outputs": {},
+                            "connectedTo": "538ee669a154d0ba61000201"
+                        },
+                        "53a9f97667349dc5330000ae_connector": {
+                            "outputs": {},
+                            "connectedTo": "53a9f97667349dc5330000ae"
+                        }
+                    }
+                },
+                "53985d3eb8154ddf0b000062": {
+                    "id": "53985d3eb8154ddf0b000062",
+                    "title": "",
+                    "type": "service",
+                    "service-name": "calculate-quote-family-insurance",
+                    "service-guid": "523c2ffd73cfc3244e00001a",
+                    "data": [
+                        {
+                            "ident": "changedProduct",
+                            "type": "Product",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "building",
+                            "type": "Building",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "product",
+                            "type": "Product",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "error",
+                            "type": "GenericError",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {
+                        "changedProduct": "product",
+                        "building": "insuredBuilding"
+                    },
+                    "exits": {
+                        "success": {
+                            "outputs": {
+                                "product": "product",
+                                "error": "error"
+                            },
+                            "connectedTo": "5357b1f0b8b484a570000077"
+                        },
+                        "error": {
+                            "outputs": {
+                                "product": "product",
+                                "error": "error"
+                            },
+                            "connectedTo": "53985db5b8154ddf0b00008a"
+                        }
+                    }
+                },
+                "53985d49b8154ddf0b000069": {
+                    "id": "53985d49b8154ddf0b000069",
+                    "title": "",
+                    "type": "service",
+                    "service-name": "apply-for-household-insurance",
+                    "service-guid": "535fc2b84956bd4c893dec5a",
+                    "data": [
+                        {
+                            "ident": "person",
+                            "type": "Person",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "product",
+                            "type": "Product",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "paymentMethod",
+                            "type": "PaymentMethod",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "building",
+                            "type": "Building",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "policy",
+                            "type": "Policy",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "error",
+                            "type": "GenericError",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {
+                        "person": "person",
+                        "product": "product",
+                        "paymentMethod": "paymentMethod",
+                        "building": "insuredBuilding"
+                    },
+                    "exits": {
+                        "success": {
+                            "outputs": {
+                                "policy": "policy",
+                                "error": "error"
+                            },
+                            "connectedTo": "5357b21ab8b484a570000090"
+                        },
+                        "error": {
+                            "outputs": {
+                                "policy": "policy",
+                                "error": "error"
+                            },
+                            "connectedTo": "53985db5b8154ddf0b00008a"
+                        }
+                    }
+                }
+            }
+        },
+        "5385cec8d0f8f2f30b0002b4": {
+            "id": "5385cec8d0f8f2f30b0002b4",
+            "name": "Product information",
+            "start-element": "5385d7f9d0f8f2f30b00030d",
+            "data": [
+                {
+                    "ident": "building",
+                    "type": "Building",
+                    "isArray": false
+                }
+            ],
+            "exits": {
+                "5385d85cd0f8f2f30b00032a": {
+                    "id": "5385d85cd0f8f2f30b00032a",
+                    "name": "to-quote-index"
+                }
+            },
+            "elements": {
+                "5385d7f9d0f8f2f30b00030d": {
+                    "id": "5385d7f9d0f8f2f30b00030d",
+                    "title": "",
+                    "file-name": "product-information-household-insurance",
+                    "type": "viewlet",
+                    "data": [
+                        {
+                            "ident": "building",
+                            "type": "Building",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {},
+                    "exits": {
+                        "to-quote": {
+                            "outputs": {
+                                "building": "building"
+                            },
+                            "connectedTo": "5385d85cd0f8f2f30b00032a"
+                        }
+                    }
+                }
+            }
+        },
+        "533040d160f2c3ce31000440": {
+            "id": "533040d160f2c3ce31000440",
+            "name": "main",
+            "start-element": "538c3acad0f8f2f30b000372",
+            "data": [
+                {
+                    "ident": "building",
+                    "type": "Building",
+                    "isArray": false
+                },
+                {
+                    "ident": "product",
+                    "type": "Product",
+                    "isArray": false
+                },
+                {
+                    "ident": "error",
+                    "type": "GenericError",
+                    "isArray": false
+                },
+                {
+                    "ident": "person",
+                    "type": "Person",
+                    "isArray": false
+                }
+            ],
+            "exits": {},
+            "elements": {
+                "5330410160f2c3ce3100044e": {
+                    "id": "5330410160f2c3ce3100044e",
+                    "title": "Quote for household insurance",
+                    "type": "touchpoint",
+                    "dialogue-name": "Quote for household insurance",
+                    "dialogue-guid": "53303bb360f2c3ce310002ea",
+                    "data": [
+                        {
+                            "ident": "insuredBuilding",
+                            "type": "Building",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "product",
+                            "type": "Product",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "error",
+                            "type": "GenericError",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {
+                        "insuredBuilding": "building"
+                    },
+                    "exits": {
+                        "to-apply-index": {
+                            "outputs": {
+                                "product": "product",
+                                "error": "error",
+                                "building": "insuredBuilding"
+                            },
+                            "connectedTo": "5357b505b8b484a570000122",
+                            "childExitName": null
+                        },
+                        "5398329bb8154ddf0b000001_connector": {
+                            "outputs": {
+                                "product": "product",
+                                "error": "error",
+                                "building": "insuredBuilding"
+                            },
+                            "connectedTo": "5398329bb8154ddf0b000001",
+                            "childExitName": "error"
+                        }
+                    }
+                },
+                "5330411a60f2c3ce3100046c": {
+                    "id": "5330411a60f2c3ce3100046c",
+                    "title": "Quote for Household Insurance",
+                    "file-name": "quote-index",
+                    "type": "viewlet",
+                    "data": [],
+                    "inputs": {},
+                    "exits": {
+                        "to-get-quote": {
+                            "outputs": {},
+                            "connectedTo": "5330410160f2c3ce3100044e"
+                        }
+                    }
+                },
+                "5330413c60f2c3ce3100049d": {
+                    "id": "5330413c60f2c3ce3100049d",
+                    "title": "Product information for Household Insurance",
+                    "file-name": "product-information-index",
+                    "type": "viewlet",
+                    "data": [],
+                    "inputs": {},
+                    "exits": {
+                        "to-product-information": {
+                            "outputs": {},
+                            "connectedTo": "5385d107d0f8f2f30b0002d1"
+                        }
+                    }
+                },
+                "5357b499b8b484a570000118": {
+                    "id": "5357b499b8b484a570000118",
+                    "title": "Apply for household insurance",
+                    "type": "touchpoint",
+                    "dialogue-name": "Apply for household insurance",
+                    "dialogue-guid": "5357ac33b8b484a570000001",
+                    "data": [
+                        {
+                            "ident": "insuredBuilding",
+                            "type": "Building",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "product",
+                            "type": "Product",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "person",
+                            "type": "Person",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "paymentMethod",
+                            "type": "PaymentMethod",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "error",
+                            "type": "GenericError",
+                            "isArray": false
+                        },
+                        {
+                            "ident": "policy",
+                            "type": "Policy",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {
+                        "insuredBuilding": "building",
+                        "product": "product"
+                    },
+                    "exits": {
+                        "5330413c60f2c3ce3100049d_connector": {
+                            "outputs": {
+                                "person": "person"
+                            },
+                            "connectedTo": "5330413c60f2c3ce3100049d",
+                            "childExitName": "to-product-information"
+                        },
+                        "5398329bb8154ddf0b000001_connector": {
+                            "outputs": {
+                                "person": "person"
+                            },
+                            "connectedTo": "5398329bb8154ddf0b000001",
+                            "childExitName": "error"
+                        }
+                    }
+                },
+                "5357b505b8b484a570000122": {
+                    "id": "5357b505b8b484a570000122",
+                    "title": "Apply index",
+                    "file-name": "apply-index",
+                    "type": "viewlet",
+                    "data": [],
+                    "inputs": {},
+                    "exits": {
+                        "to-apply": {
+                            "outputs": {},
+                            "connectedTo": "5357b499b8b484a570000118"
+                        }
+                    }
+                },
+                "5385d107d0f8f2f30b0002d1": {
+                    "id": "5385d107d0f8f2f30b0002d1",
+                    "title": "Product information",
+                    "type": "touchpoint",
+                    "dialogue-name": "Product information",
+                    "dialogue-guid": "5385cec8d0f8f2f30b0002b4",
+                    "data": [
+                        {
+                            "ident": "building",
+                            "type": "Building",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {},
+                    "exits": {
+                        "to-quote-index": {
+                            "outputs": {
+                                "building": "building"
+                            },
+                            "connectedTo": "5330411a60f2c3ce3100046c",
+                            "childExitName": "to-quote-index"
+                        }
+                    }
+                },
+                "538c3acad0f8f2f30b000372": {
+                    "id": "538c3acad0f8f2f30b000372",
+                    "title": "",
+                    "file-name": "shell-customer-portal",
+                    "type": "viewlet",
+                    "data": [],
+                    "inputs": {},
+                    "exits": {
+                        "to-product-information-index": {
+                            "outputs": {},
+                            "connectedTo": "5330413c60f2c3ce3100049d"
+                        }
+                    }
+                },
+                "5398329bb8154ddf0b000001": {
+                    "id": "5398329bb8154ddf0b000001",
+                    "title": "",
+                    "file-name": "general-error-page",
+                    "type": "viewlet",
+                    "data": [
+                        {
+                            "ident": "error",
+                            "type": "GenericError",
+                            "isArray": false
+                        }
+                    ],
+                    "inputs": {
+                        "error": "error"
+                    },
+                    "exits": {}
+                }
+            }
+        }
+    }
+}
